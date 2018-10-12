@@ -1,0 +1,91 @@
+Run with:
+
+[source,shell]
+----
+mvn clean test
+----
+
+From time to time, getting failures like this one:
+
+----
+Running CounterTest
+oct. 12, 2018 5:04:59 PM org.infinispan.factories.GlobalComponentRegistry preStart
+INFO: ISPN000128: Infinispan version: Infinispan 'Infinity Minus ONE +2' 9.4.0.Final
+oct. 12, 2018 5:04:59 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport start
+INFO: ISPN000078: Starting JGroups channel ISPN
+oct. 12, 2018 5:05:04 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport receiveClusterView
+INFO: ISPN000094: Received new cluster view for channel ISPN: [localhost-38114|0] (1) [localhost-38114]
+oct. 12, 2018 5:05:04 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport startJGroupsChannelIfNeeded
+INFO: ISPN000079: Channel ISPN local address is localhost-38114, physical addresses are [127.0.0.1:7800]
+oct. 12, 2018 5:05:05 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport start
+INFO: ISPN000078: Starting JGroups channel ISPN
+oct. 12, 2018 5:05:05 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport receiveClusterView
+INFO: ISPN000094: Received new cluster view for channel ISPN: [localhost-38114|1] (2) [localhost-38114, localhost-49015]
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: ISPN100000: Node localhost-49015 joined the cluster
+oct. 12, 2018 5:05:05 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport receiveClusterView
+INFO: ISPN000094: Received new cluster view for channel ISPN: [localhost-38114|1] (2) [localhost-38114, localhost-49015]
+oct. 12, 2018 5:05:05 PM org.infinispan.remoting.transport.jgroups.JGroupsTransport startJGroupsChannelIfNeeded
+INFO: ISPN000079: Channel ISPN local address is localhost-49015, physical addresses are [127.0.0.1:7801]
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [localhost-38114, localhost-49015], phase READ_OLD_WRITE_ALL, topology id 2
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 3
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 4
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [localhost-38114, localhost-49015], topology id 5
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.COUNTER] ISPN100002: Starting rebalance with members [localhost-38114, localhost-49015], phase READ_OLD_WRITE_ALL, topology id 2
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.COUNTER] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 3
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.COUNTER] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 4
+oct. 12, 2018 5:05:05 PM org.infinispan.util.logging.events.impl.BasicEventLogger log
+INFO: [Context=org.infinispan.COUNTER] ISPN100010: Finished rebalance with members [localhost-38114, localhost-49015], topology id 5
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 7.638 sec <<< FAILURE!
+testAddAndGet(CounterTest)  Time elapsed: 7.531 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<2> but was:<4>
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:645)
+	at org.junit.Assert.assertEquals(Assert.java:631)
+	at CounterTest.testAddAndGet(CounterTest.java:32)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+
+Results :
+
+Failed tests:   testAddAndGet(CounterTest): expected:<2> but was:<4>
+
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+----
